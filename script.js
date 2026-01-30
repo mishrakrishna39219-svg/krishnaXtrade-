@@ -1,90 +1,99 @@
-// ================================
-// KrishnaXTrade | Correlation Chart
-// ================================
+/*******************************************************
+ * KrishnaXTrade | Professional Quant Dashboard Script
+ * Handles:
+ * - Multi-language support (EN / HI)
+ * - Dynamic profile image
+ * - Dynamic reports loading
+ * - Future extension for charts or other sections
+ *******************************************************/
 
-// Fake demo data (structure real quant jaisa)
-// Future me API se replace hoga
+/***********************
+ * CONFIGURATIONS
+ ***********************/
+const CONFIG = {
+  profileImage: "assets/profile.jpg", // Profile photo path
+  reportsFolder: "assets/reports/",    // Folder path for PDF reports
+  reports: ["sample-report.pdf", "report2.pdf"], // Add more PDFs here
+  defaultLang: "en",                   // Default language
+  languages: ["en", "hi"]              // Supported languages
+};
 
-const labels = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-];
+/***********************
+ * LANGUAGE CONTENT
+ ***********************/
+let contentData = {}; // Will store content.json
 
-const btcData = [12, 18, 15, 22, 28, 35, 30, 38, 42, 39, 45, 50];
-const goldData = [20, 19, 21, 22, 23, 24, 25, 26, 27, 26, 28, 29];
-const dxyData = [90, 92, 91, 93, 94, 95, 96, 97, 96, 98, 99, 100];
+// Fetch content.json and store globally
+fetch('assets/content.json')
+  .then(res => res.json())
+  .then(data => {
+    contentData = data;
+    setLanguage(CONFIG.defaultLang); // Load default language
+  })
+  .catch(err => console.error("Error loading content.json:", err));
 
-const ctx = document.getElementById("correlationChart").getContext("2d");
+/***********************
+ * SET LANGUAGE FUNCTION
+ ***********************/
+function setLanguage(lang) {
+  if (!contentData[lang]) return console.warn(`Language ${lang} not found!`);
 
-const correlationChart = new Chart(ctx, {
-  type: "line",
-  data: {
-    labels: labels,
-    datasets: [
-      {
-        label: "Bitcoin (BTC)",
-        data: btcData,
-        borderWidth: 2,
-        borderColor: "#f7931a",
-        tension: 0.3
-      },
-      {
-        label: "Gold",
-        data: goldData,
-        borderWidth: 2,
-        borderColor: "#ffd700",
-        tension: 0.3
-      },
-      {
-        label: "US Dollar Index (DXY)",
-        data: dxyData,
-        borderWidth: 2,
-        borderColor: "#58a6ff",
-        tension: 0.3
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        labels: {
-          color: "#e6edf3"
-        }
-      }
-    },
-    scales: {
-      x: {
-        ticks: {
-          color: "#8b949e"
-        },
-        grid: {
-          color: "#21262d"
-        }
-      },
-      y: {
-        ticks: {
-          color: "#8b949e"
-        },
-        grid: {
-          color: "#21262d"
-        }
-      }
+  // Update About section
+  const about = contentData[lang];
+  document.getElementById("aboutTitle").innerText = about.aboutTitle;
+  document.getElementById("aboutText").innerText = about.aboutText;
+
+  // Update Connect section
+  document.getElementById("connectTitle").innerText = about.connectTitle;
+}
+
+/***********************
+ * PROFILE IMAGE
+ ***********************/
+function loadProfileImage() {
+  const img = document.getElementById("profileImg");
+  if (img) img.src = CONFIG.profileImage;
+}
+
+/***********************
+ * LOAD REPORTS DYNAMICALLY
+ ***********************/
+function loadReports() {
+  const reportList = document.getElementById("reportList");
+  if (!reportList) return;
+
+  reportList.innerHTML = ""; // Clear previous
+
+  CONFIG.reports.forEach(file => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = CONFIG.reportsFolder + file;
+    a.target = "_blank";
+    a.innerText = file.replace(".pdf", "");
+    li.appendChild(a);
+    reportList.appendChild(li);
+  });
+}
+
+/***********************
+ * INITIALIZE WEBSITE
+ ***********************/
+function initWebsite() {
+  loadProfileImage();
+  loadReports();
+  setLanguage(CONFIG.defaultLang); // Ensure default language applied
+}
+
+/***********************
+ * EVENT LISTENERS
+ ***********************/
+// Language buttons (EN / HI)
+document.addEventListener("DOMContentLoaded", () => {
+  initWebsite();
+  CONFIG.languages.forEach(lang => {
+    const btn = document.getElementById(`lang-${lang}`);
+    if (btn) {
+      btn.addEventListener("click", () => setLanguage(lang));
     }
-  }
+  });
 });
-
-// ================================
-// Auto-refresh feel (simulation)
-// ================================
-setInterval(() => {
-  btcData.push(btcData[btcData.length - 1] + (Math.random() * 4 - 2));
-  goldData.push(goldData[goldData.length - 1] + (Math.random() * 1 - 0.5));
-  dxyData.push(dxyData[dxyData.length - 1] + (Math.random() * 1 - 0.5));
-
-  btcData.shift();
-  goldData.shift();
-  dxyData.shift();
-
-  correlationChart.update();
-}, 4000);
