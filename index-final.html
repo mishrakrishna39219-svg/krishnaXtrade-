@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KrishnaXTrade | Professional Quant Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav style="background:#161b22; padding:15px; text-align:center;">
+    <a href="index-final.html" style="margin:0 10px; color:#58a6ff;">Home</a>
+    <a href="dashboard.html" style="margin:0 10px; color:#58a6ff;">Dashboard</a>
+    <a href="login.html" style="margin:0 10px; color:#58a6ff;">Login</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header>
+    <h1>KrishnaXTrade</h1>
+    <p>Quantitative Macro • Correlation • Market Intelligence</p>
+
+    <img src="assets/profile.jpg" alt="Profile" width="90" style="border-radius:50%;margin-top:10px;">
+
+    <!-- LANGUAGE SWITCH -->
+    <div style="margin-top:10px;">
+      <button onclick="setLanguage('en')">English</button>
+      <button onclick="setLanguage('hi')">हिंदी</button>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="card">
+    <h2 id="aboutTitle">About Me</h2>
+    <p id="aboutText">
+      I am an independent Quantitative Market Analyst focusing on Global Macro, Correlation, Yield Curves, FX, Crypto and Risk Management.
+    </p>
+  </section>
+
+  <!-- LIVE CORRELATION CHART -->
+  <section class="card">
+    <h2>Correlation Chart</h2>
+    <canvas id="correlationChart" height="150"></canvas>
+  </section>
+
+  <!-- REPORTS -->
+  <section class="card">
+    <h2 id="reportTitle">Research Reports</h2>
+    <ul>
+      <li><a href="assets/reports/sample-report.pdf" target="_blank">Latest Macro Report</a></li>
+      <li><a href="assets/reports/report2.pdf" target="_blank">Crypto Correlation Report</a></li>
+    </ul>
+  </section>
+
+  <!-- SOCIAL LINKS -->
+  <section class="card">
+    <h2 id="connectTitle">Connect With Me</h2>
+    <p>
+      <a href="#" target="_blank">YouTube</a> |
+      <a href="#" target="_blank">Twitter / X</a> |
+      <a href="#" target="_blank">Instagram</a> |
+      <a href="#" target="_blank">Telegram</a> |
+      <a href="#" target="_blank">LinkedIn</a>
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2026 KrishnaXTrade • Educational Use Only</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="script.js"></script>
+  <script src="lang.js"></script>
+
+</body>
+</html>
