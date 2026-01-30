@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KrishnaXtrade | Global Multi-Asset Quant Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .sidebar { width: 280px; height: 100vh; position: fixed; left: 0; top: 0; padding: 20px; border-right: 1px solid #334155; }
+        .main-content { margin-left: 280px; padding: 20px; }
+        .chart-container { height: 450px; border-radius: 12px; overflow: hidden; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar glass-panel">
+    <div class="text-center mb-8">
+        <img src="your-profile-pic.jpg" alt="Krishna" class="w-24 h-24 rounded-full mx-auto border-4 border-blue-500 shadow-lg mb-4">
+        <h2 class="text-xl font-bold">Mishra</h2>
+        <p class="text-sm text-slate-400">Global Multi-Asset Quant Analyst</p>
+    </div>
+
+    <div class="space-y-4">
+        <a href="#" class="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded-lg transition"><i class="fab fa-twitter text-blue-400"></i> <span>Twitter</span></a>
+        <a href="#" class="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded-lg transition"><i class="fab fa-linkedin text-blue-600"></i> <span>LinkedIn</span></a>
+        <a href="#" class="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded-lg transition"><i class="fas fa-envelope text-red-400"></i> <span>Substack</span></a>
+        <a href="#" class="flex items-center space-x-3 p-2 hover:bg-slate-700 rounded-lg transition"><i class="fab fa-youtube text-red-600"></i> <span>YouTube</span></a>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-slate-700">
+        <button onclick="toggleEditMode()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition">
+            <i class="fas fa-edit"></i> Edit Dashboard
+        </button>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="glass-panel p-4 rounded-xl col-span-2 chart-container">
+            <h3 class="mb-4 font-bold text-blue-400"><i class="fas fa-chart-line"></i> Global Market Live View (Tick Data Style)</h3>
+            <div id="tradingview_main" style="height: 100%;"></div>
+        </div>
+
+        <div class="glass-panel p-4 rounded-xl">
+            <h3 class="mb-4 font-bold text-green-400"><i class="fas fa-project-diagram"></i> Quant Correlation (Nifty vs BTC)</h3>
+            <div class="flex justify-between items-center text-sm mb-2">
+                <span>Correlation Factor:</span>
+                <span id="corr-value" class="font-mono text-yellow-400">0.82 (High)</span>
+            </div>
+            <div class="w-full bg-slate-700 h-2 rounded">
+                <div class="bg-green-500 h-2 rounded" style="width: 82%"></div>
+            </div>
+        </div>
+
+        <div id="post-container" class="glass-panel p-4 rounded-xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-purple-400"><i class="fas fa-pen-nib"></i> Latest Posts</h3>
+                <button onclick="addNewPost()" class="text-xs bg-slate-700 px-2 py-1 rounded">Add Post</button>
+            </div>
+            <div id="posts" class="space-y-4">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+<script>
+    // TradingView Initialization
+    new TradingView.widget({
+        "autosize": true,
+        "symbol": "BINANCE:BTCUSDT",
+        "interval": "1",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "enable_publishing": false,
+        "hide_top_toolbar": true,
+        "save_image": false,
+        "container_id": "tradingview_main"
+    });
+
+    // Simple JS for Post Management (Add/Delete)
+    function addNewPost() {
+        const title = prompt("Post Title:");
+        if (title) {
+            const postHtml = `
+                <div class="p-3 bg-slate-800 rounded relative group">
+                    <p class="text-sm">${title}</p>
+                    <button onclick="this.parentElement.remove()" class="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 transition">Delete</button>
+                </div>
+            `;
+            document.getElementById('posts').innerHTML += postHtml;
+        }
+    }
+</script>
+</body>
+</html>
