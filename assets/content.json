@@ -1,0 +1,12 @@
+{
+  "en": {
+    "aboutTitle": "About Me",
+    "aboutText": "I am an independent Quantitative Market Analyst focusing on Global Macro, Correlation, Yield Curves, FX, Crypto and Risk Management.",
+    "connectTitle": "Connect With Me"
+  },
+  "hi": {
+    "aboutTitle": "मेरे बारे में",
+    "aboutText": "मैं एक स्वतंत्र क्वांटिटेटिव मार्केट एनालिस्ट हूँ जो ग्लोबल मैक्रो, कोरिलेशन, यील्ड कर्व्स, एफएक्स, क्रिप्टो और रिस्क मैनेजमेंट पर ध्यान केंद्रित करता है।",
+    "connectTitle": "मुझसे संपर्क करें"
+  }
+}
